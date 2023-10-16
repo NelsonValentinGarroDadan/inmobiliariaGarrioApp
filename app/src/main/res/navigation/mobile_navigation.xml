@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_inicio">
+
+    <fragment
+        android:id="@+id/nav_inicio"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inicio.InicioFragment"
+        android:label="Ubicacion"
+        tools:layout="@layout/fragment_inicio" />
+
+    <fragment
+        android:id="@+id/nav_perfil"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Perfil.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
+
+    <fragment
+        android:id="@+id/nav_inmuebles"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inmuebles.InmuebleFragment"
+        android:label="Inmuebles"
+        tools:layout="@layout/fragment_inmueble" >
+        <action
+            android:id="@+id/action_nav_inmuebles_to_fragment_detalle_inmuble"
+            app:destination="@id/fragment_detalle_inmuble" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_inquilinos"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.InquilinoFragment"
+        android:label="Inquilinos"
+        tools:layout="@layout/fragment_inquilino" >
+        <action
+            android:id="@+id/action_nav_inquilinos_to_fragment_detalle_inquilino"
+            app:destination="@id/fragment_detalle_inquilino" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_contratos"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Contratos.ContratoFragment"
+        android:label="Contratos"
+        tools:layout="@layout/fragment_contrato" >
+        <action
+            android:id="@+id/action_nav_contratos_to_fragment_detalle_contrato"
+            app:destination="@id/fragment_detalle_contrato" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Logout.LogoutFragment"
+        android:label="Salir"
+        tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/fragment_detalle_inmuble"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inmuebles.DetalleInmubleFragment"
+        android:label="Inmueble"
+        tools:layout="@layout/fragment_detalle_inmueble" >
+        <action
+            android:id="@+id/action_fragment_detalle_inmuble_to_nav_inmuebles"
+            app:destination="@id/nav_inmuebles" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_detalle_inquilino"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.DetalleInquilinoFragment"
+        android:label="Inquilino"
+        tools:layout="@layout/fragment_detalle_inmueble" >
+        <action
+            android:id="@+id/action_fragment_detalle_inquilino_to_nav_inquilinos"
+            app:destination="@id/nav_inquilinos" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_detalle_contrato"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Contratos.DetalleContratoFragment"
+        android:label="Contrato"
+        tools:layout="@layout/fragment_detalle_contrato" >
+        <action
+            android:id="@+id/action_fragment_detalle_contrato_to_nav_contratos"
+            app:destination="@id/nav_contratos" />
+        <action
+            android:id="@+id/action_fragment_detalle_contrato_to_fragment_pagos"
+            app:destination="@id/fragment_pagos" />
+        <action
+            android:id="@+id/action_fragment_detalle_contrato_to_fragment_pagos2"
+            app:destination="@id/fragment_pagos" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_pagos"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Pagos.FragmentPagos"
+        android:label="Detalle de pagos"
+        tools:layout="@layout/fragment_pagos" >
+        <action
+            android:id="@+id/action_fragment_pagos_to_fragment_detalle_contrato"
+            app:destination="@id/fragment_detalle_contrato" />
+    </fragment>
+</navigation>
