@@ -1,50 +1,24 @@
 package com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inicio;
-
-import android.Manifest;
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.util.Log;
 
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.Priority;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 public class InicioViewModel extends AndroidViewModel {
 
     private Context context;
-    private FusedLocationProviderClient fused;
-    private MutableLiveData<MapaActual> miMapaM;
-    private LatLng ultimaUbicacion;
+    //private FusedLocationProviderClient fused;
+   // private MutableLiveData<MapaActual> miMapaM;
+    //private LatLng ultimaUbicacion;
 
     public InicioViewModel(@NonNull Application application) {
         super(application);
         context = application;
-        fused = LocationServices.getFusedLocationProviderClient(context);
+        //fused = LocationServices.getFusedLocationProviderClient(context);
     }
-
+/*
 
     public LiveData getMutableMapa() {
         if (miMapaM == null) {
@@ -86,7 +60,11 @@ public class InicioViewModel extends AndroidViewModel {
         public void onMapReady(@NonNull GoogleMap googleMap) {
             LatLng Cabildo = new LatLng(-33.16017,-66.32583);
             googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-            googleMap.addMarker(new MarkerOptions().position(Cabildo).title("Inmubles La Punta"));
+            googleMap.addMarker(new MarkerOptions()
+                    .position(Cabildo)
+                    .title("Inmubles La Punta")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+            );
             CameraPosition camera = new CameraPosition.Builder()
                     .target(Cabildo)
                     .zoom(19)
@@ -96,6 +74,6 @@ public class InicioViewModel extends AndroidViewModel {
             CameraUpdate update = CameraUpdateFactory.newCameraPosition(camera);
             googleMap.animateCamera(update);
         }
-    }
+    }*/
 
 }

@@ -13,14 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.inmobiliariagarrioapp.R;
-import com.example.inmobiliariagarrioapp.modelo.Propietario;
+import com.example.inmobiliariagarrioapp.Modelos.Propietario;
 import com.example.inmobiliariagarrioapp.request.ApiClient;
+import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
+import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Perfil.PerfilViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -34,14 +38,14 @@ public class MenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuBinding binding;
-
+    private ViewModelMenu vm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        vm =  new ViewModelProvider(this).get(ViewModelMenu.class);
         setSupportActionBar(binding.appBarMenu.toolbar);
         binding.appBarMenu.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,14 +71,14 @@ public class MenuActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);//settea header del menu
-        Propietario p = ApiClient.getApi().obtenerUsuarioActual();
-        LinearLayout l = binding.getRoot().findViewById(R.id.header_menu);
-        ImageView im = l.findViewById(R.id.image_user);
-        TextView tN =  l.findViewById(R.id.nombre_user);
-        TextView tM =  l.findViewById(R.id.mail_user);
-        im.setImageResource(p.getAvatar());
-        tN.setText(p.getNombre()+" "+p.getApellido());
-        tM.setText(p.getEmail());
+        vm.getMutable().observe(this, new Observer<Propietario>() {
+            @Override
+            public void onChanged(Propietario p) {
+                actualizarDatosMenu(p.getPersona().getNombre() + " " + p.getPersona().getApellido(), p.getMail());
+            }
+        });
+        vm.obtenerPActual();
+
         return true;
     }
 
@@ -85,7 +89,13 @@ public class MenuActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
+    public void actualizarDatosMenu(String nombre, String mail) {
+        LinearLayout l = binding.getRoot().findViewById(R.id.header_menu);
+        TextView tN = l.findViewById(R.id.nombre_user);
+        TextView tM = l.findViewById(R.id.mail_user);
+        tN.setText(nombre);
+        tM.setText(mail);
+    }
 
 
 }

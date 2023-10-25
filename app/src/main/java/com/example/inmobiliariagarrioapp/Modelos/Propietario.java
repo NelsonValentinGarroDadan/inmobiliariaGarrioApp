@@ -1,18 +1,35 @@
 package com.example.inmobiliariagarrioapp.Modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Propietario implements Serializable {
-    private int Id ;
-    private Persona Persona ;
-    private String Mail ;
-    private String Password ;
+    @SerializedName("id")
+    private int Id;
+
+    @SerializedName("personaId")
+    private int PersonaId;
+
+    @SerializedName("persona")
+    private Persona Persona;
+
+    @SerializedName("mail")
+    private String Mail;
+
+    @SerializedName("password")
+    private String Password;
 
     public Propietario(int id, com.example.inmobiliariagarrioapp.Modelos.Persona persona, String mail, String password) {
         Id = id;
         Persona = persona;
         Mail = mail;
         Password = password;
+    }
+
+    public Propietario(int id, com.example.inmobiliariagarrioapp.Modelos.Persona persona) {
+        Id = id;
+        Persona = persona;
     }
 
     public int getId() {

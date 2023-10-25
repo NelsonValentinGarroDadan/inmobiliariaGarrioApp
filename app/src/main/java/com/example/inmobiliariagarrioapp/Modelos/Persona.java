@@ -1,15 +1,26 @@
 package com.example.inmobiliariagarrioapp.Modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Persona implements Serializable {
-    private int Id ;
-    private int DNI ;
-    private String Nombre ;
-    private String Apellido ;
-    private long Telefono ;
+    @SerializedName("id")
+    private int Id;
 
-    public Persona(int id, int DNI, String nombre, String apellido, long telefono) {
+    @SerializedName("dni")
+    private long DNI;
+
+    @SerializedName("nombre")
+    private String Nombre;
+
+    @SerializedName("apellido")
+    private String Apellido;
+
+    @SerializedName("telefono")
+    private long Telefono;
+
+    public Persona(int id, long DNI, String nombre, String apellido, long telefono) {
         Id = id;
         this.DNI = DNI;
         Nombre = nombre;
@@ -25,11 +36,11 @@ public class Persona implements Serializable {
         Id = id;
     }
 
-    public int getDNI() {
+    public long getDNI() {
         return DNI;
     }
 
-    public void setDNI(int DNI) {
+    public void setDNI(long DNI) {
         this.DNI = DNI;
     }
 

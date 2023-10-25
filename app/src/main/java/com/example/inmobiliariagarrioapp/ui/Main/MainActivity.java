@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 mv.login(binding.etMail.getText().toString(),binding.etPassword.getText().toString());
             }
         });
+        //Descomentar para localizacion
         if (!verificarPermisos()) {
             solicitarPermisos();
         }
@@ -40,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void solicitarPermisos(){
         String[] permisos = new String[]{
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                //Manifest.permission.ACCESS_COARSE_LOCATION,
+                //Manifest.permission.ACCESS_FINE_LOCATION,
+               // Manifest.permission.ACCESS_BACKGROUND_LOCATION,
                 Manifest.permission.INTERNET,
                 Manifest.permission.WAKE_LOCK,
                 Manifest.permission.CALL_PHONE
@@ -52,19 +53,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private boolean verificarPermisos() {
-        int permisoCoarseLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        int permisoFineLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        int permisoBackgroundLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-        int permisoInternet = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+       int permisoInternet = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
         int permisoAcelerometro = ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK);
         int permisoCall = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
-
-        return permisoCoarseLocation == PackageManager.PERMISSION_GRANTED &&
+        /* Permiso de localizacion
+          int permisoCoarseLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        int permisoFineLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int permisoBackgroundLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
+       return permisoCoarseLocation == PackageManager.PERMISSION_GRANTED &&
                 permisoFineLocation == PackageManager.PERMISSION_GRANTED &&
                 permisoBackgroundLocation == PackageManager.PERMISSION_GRANTED &&
                 permisoInternet == PackageManager.PERMISSION_GRANTED &&
                 permisoAcelerometro == PackageManager.PERMISSION_GRANTED &&
                 permisoCall == PackageManager.PERMISSION_GRANTED;
+         */
+        return
+                permisoInternet == PackageManager.PERMISSION_GRANTED &&
+                permisoAcelerometro == PackageManager.PERMISSION_GRANTED &&
+                permisoCall == PackageManager.PERMISSION_GRANTED;
+
+
     }
 
     @Override
@@ -78,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == CODIGO_DE_SOLICITUD_DE_PERMISOS) {
-            if (grantResults.length < 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 Toast.makeText(this, "La aplicación requiere permisos para funcionar. La aplicación se cerrará.", Toast.LENGTH_SHORT).show();
                 finish();
             }
