@@ -55,7 +55,8 @@ public class DetalleInmubleFragment extends Fragment {
                 cbInmDisponible.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        vm.cambiarDisponibilidad(cbInmDisponible.isChecked());
+                        int id = Integer.parseInt(tvInmCodigo.getText().toString());
+                        vm.cambiarDisponibilidad(id,cbInmDisponible.isChecked());
                     }
                 });
             }

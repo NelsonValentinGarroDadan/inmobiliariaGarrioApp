@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.inmobiliariagarrioapp.R;
 import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
+import com.example.inmobiliariagarrioapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.info.setText(inmuebles.get(position).getLongitud()+" "+inmuebles.get(position).getLatitud()+"\n"+inmuebles.get(position).getPrecio());
+        holder.info.setText(inmuebles.get(position).getLongitud()+" "+inmuebles.get(position).getLatitud()+"\n"+"$"+inmuebles.get(position).getPrecio());
         Glide.with(context)
                 .load("http://192.168.0.120:5000/api/Inmuebles/Imagenes/"+inmuebles.get(position).getImagen())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

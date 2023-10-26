@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
 import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 import com.example.inmobiliariagarrioapp.Modelos.Propietario;
 import com.google.gson.Gson;
@@ -89,7 +90,9 @@ public class ApiClientRetrofit {
         Call<List<Inmueble>> obtenerPropiedades(@Header("Authorization") String token);
         @FormUrlEncoded
         @PATCH("api/Inmuebles/cambiarDisponibilidad")
-        Call<Inmueble> cambiarDisponibilidad(@Header("Authorization") String token, @Field("estado") boolean estado);
+        Call<Inmueble> cambiarDisponibilidad(@Header("Authorization") String token,@Field("id") int id, @Field("estado") boolean estado);
+        @GET("api/Alquileres/obtenerXPerfil")
+        Call<List<Alquiler>> obtenerPropiedadesAlquiladas(@Header("Authorization") String token);
     }
 
 }

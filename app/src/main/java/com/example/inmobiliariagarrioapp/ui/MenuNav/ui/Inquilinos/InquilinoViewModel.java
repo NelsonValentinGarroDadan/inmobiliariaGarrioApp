@@ -9,29 +9,34 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
+import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
 import com.example.inmobiliariagarrioapp.request.ApiClient;
+import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
 
 public class InquilinoViewModel extends AndroidViewModel {
 
     private Context context;
-    private MutableLiveData<ArrayList<Inmueble>> mInmuebles;
-    private ApiClient api;
+    private MutableLiveData<List<Alquiler>> mAlquileres;
+    private ApiClientRetrofit.ApiInmobiliaria api;
     public InquilinoViewModel(@NonNull Application application) {
         super(application);
         this.context = application;
-        api = ApiClient.getApi();
+        api = ApiClientRetrofit.getApiInmobiliaria();
     }
     public LiveData getMutable()
     {
-        if(mInmuebles == null){
-            mInmuebles = new MutableLiveData<>();
+        if(mAlquileres == null){
+            mAlquileres = new MutableLiveData<>();
         }
-        return mInmuebles;
+        return mAlquileres;
     }
     public void cargarInmuebles(){
-        mInmuebles.setValue(api.obtenerPropiedadesAlquiladas());
+        String token = ApiClientRetrofit.leerToken(context);
+        Call<List<Alquiler>> llamada = api.obtenerPropiedadesAlquiladas(token);
+
     }
 }
