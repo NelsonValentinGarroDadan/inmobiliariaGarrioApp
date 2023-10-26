@@ -9,11 +9,12 @@ public class Inmueble implements Serializable {
     private int CAmbientes ;
     private String Tipo ;
     private String Uso ;
-    private Double Precio ;
+    private float Precio ;
     private boolean Disponible ;
+    private String imagen;
    private Propietario Propietario ;
 
-    public Inmueble(int id, String longitud, String latitud, int CAmbientes, String tipo, String uso, Double precio, boolean disponible, com.example.inmobiliariagarrioapp.Modelos.Propietario propietario) {
+    public Inmueble(int id, String longitud, String latitud, int CAmbientes, String tipo, String uso, float precio, boolean disponible, Propietario propietario , String imagen) {
         Id = id;
         Longitud = longitud;
         Latitud = latitud;
@@ -23,6 +24,15 @@ public class Inmueble implements Serializable {
         Precio = precio;
         Disponible = disponible;
         Propietario = propietario;
+        imagen = imagen;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     public int getId() {
@@ -73,11 +83,11 @@ public class Inmueble implements Serializable {
         Uso = uso;
     }
 
-    public Double getPrecio() {
+    public float getPrecio() {
         return Precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(float precio) {
         Precio = precio;
     }
 

@@ -19,16 +19,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.inmobiliariagarrioapp.R;
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHolder>{
     private Context context;
-    private ArrayList<Inmueble> inmuebles;
+    private List<Inmueble> inmuebles;
     private LayoutInflater li;
 
-    public AdapterInmueble(Context context, ArrayList<Inmueble> inmuebleArrayList, LayoutInflater li) {
+    public AdapterInmueble(Context context, List<Inmueble> inmuebleArrayList, LayoutInflater li) {
         this.context = context;
         this.inmuebles = inmuebleArrayList;
         this.li = li;
@@ -43,9 +44,9 @@ public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.info.setText(inmuebles.get(position).getDireccion()+"\n"+inmuebles.get(position).getPrecio());
+        holder.info.setText(inmuebles.get(position).getLongitud()+" "+inmuebles.get(position).getLatitud()+"\n"+inmuebles.get(position).getPrecio());
         Glide.with(context)
-                .load(inmuebles.get(position).getImagen())
+                .load("http://192.168.0.120:5000/api/Inmuebles/Imagenes/"+inmuebles.get(position).getImagen())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.foto);
 

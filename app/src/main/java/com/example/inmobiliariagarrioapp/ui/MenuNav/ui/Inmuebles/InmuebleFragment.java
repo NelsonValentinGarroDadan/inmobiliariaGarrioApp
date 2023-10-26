@@ -15,9 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inmobiliariagarrioapp.databinding.FragmentInmuebleBinding;
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InmuebleFragment extends Fragment {
 
@@ -31,9 +32,9 @@ public class InmuebleFragment extends Fragment {
         binding = FragmentInmuebleBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        vm.getMutable().observe(getViewLifecycleOwner(), new Observer<ArrayList<Inmueble>>() {
+        vm.getMutable().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
             @Override
-            public void onChanged(ArrayList<Inmueble> lista) {
+            public void onChanged(List<Inmueble> lista) {
                 RecyclerView r = binding.rInmuebles;
                 GridLayoutManager glm = new GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false);
                 r.setLayoutManager(glm);
