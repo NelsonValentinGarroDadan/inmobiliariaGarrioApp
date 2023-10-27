@@ -11,4 +11,19 @@
         android:id="@+id/rInmuebles"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rInmuebles"
+        app:layout_constraintVertical_bias="0.922"
+        app:srcCompat="@drawable/house"
+        tools:ignore="MissingConstraints"
+        android:contentDescription="crear"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

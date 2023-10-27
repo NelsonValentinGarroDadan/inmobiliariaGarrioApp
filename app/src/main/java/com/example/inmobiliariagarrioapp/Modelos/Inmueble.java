@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+import okhttp3.MultipartBody;
+
 public class Inmueble implements Serializable {
     @SerializedName("id")
     private int Id;
@@ -24,6 +26,15 @@ public class Inmueble implements Serializable {
     @SerializedName("imagen")
     private String imagen;
     private Propietario propietario;
+    private MultipartBody.Part image;
+
+    public MultipartBody.Part getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartBody.Part image) {
+        this.image = image;
+    }
 
     public Inmueble(int id, String longitud, String latitud, int CAmbientes, String tipo, String uso, double precio, boolean disponible, Propietario propietario , String imagen) {
         Id = id;
@@ -36,6 +47,10 @@ public class Inmueble implements Serializable {
         Disponible = disponible;
        this. propietario = propietario;
         this.imagen = imagen;
+    }
+
+    public Inmueble() {
+
     }
 
     public String getImagen() {

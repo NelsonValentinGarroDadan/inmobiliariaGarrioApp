@@ -8,13 +8,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.inmobiliariagarrioapp.databinding.ActivityMainBinding;
-
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -30,48 +28,51 @@ public class MainActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mv.login(binding.etMail.getText().toString(),binding.etPassword.getText().toString());
+                mv.login(binding.etMail.getText().toString(), binding.etPassword.getText().toString());
             }
         });
-        //Descomentar para localizacion
-        if (!verificarPermisos()) {
+
+         if (!verificarPermisos()) {
             solicitarPermisos();
-        }
+         }
         mv.startShakeDetection();
     }
-    public void solicitarPermisos(){
+
+    public void solicitarPermisos() {
         String[] permisos = new String[]{
-                //Manifest.permission.ACCESS_COARSE_LOCATION,
-                //Manifest.permission.ACCESS_FINE_LOCATION,
-               // Manifest.permission.ACCESS_BACKGROUND_LOCATION,
                 Manifest.permission.INTERNET,
                 Manifest.permission.WAKE_LOCK,
-                Manifest.permission.CALL_PHONE
+                Manifest.permission.CALL_PHONE,
+                // Descomenta los siguientes permisos cuando los necesites
+                // Manifest.permission.ACCESS_COARSE_LOCATION,
+                // Manifest.permission.ACCESS_FINE_LOCATION,
+                // Manifest.permission.ACCESS_BACKGROUND_LOCATION,
         };
 
         ActivityCompat.requestPermissions(this, permisos, CODIGO_DE_SOLICITUD_DE_PERMISOS);
-
     }
+
     private boolean verificarPermisos() {
-       int permisoInternet = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+        int permisoInternet = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
         int permisoAcelerometro = ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK);
         int permisoCall = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+        int permisoRExStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permisoWExStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         /* Permiso de localizacion
           int permisoCoarseLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
         int permisoFineLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int permisoBackgroundLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-       return permisoCoarseLocation == PackageManager.PERMISSION_GRANTED &&
+        return permisoCoarseLocation == PackageManager.PERMISSION_GRANTED &&
                 permisoFineLocation == PackageManager.PERMISSION_GRANTED &&
                 permisoBackgroundLocation == PackageManager.PERMISSION_GRANTED &&
                 permisoInternet == PackageManager.PERMISSION_GRANTED &&
                 permisoAcelerometro == PackageManager.PERMISSION_GRANTED &&
                 permisoCall == PackageManager.PERMISSION_GRANTED;
          */
-        return
-                permisoInternet == PackageManager.PERMISSION_GRANTED &&
+        return permisoInternet == PackageManager.PERMISSION_GRANTED &&
                 permisoAcelerometro == PackageManager.PERMISSION_GRANTED &&
-                permisoCall == PackageManager.PERMISSION_GRANTED;
-
+                permisoCall == PackageManager.PERMISSION_GRANTED &&
+                permisoRExStorage == PackageManager.PERMISSION_GRANTED;
 
     }
 

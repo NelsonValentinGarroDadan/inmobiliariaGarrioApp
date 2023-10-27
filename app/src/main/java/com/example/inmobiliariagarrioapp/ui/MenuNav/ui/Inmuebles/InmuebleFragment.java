@@ -11,11 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.inmobiliariagarrioapp.R;
 import com.example.inmobiliariagarrioapp.databinding.FragmentInmuebleBinding;
 import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +35,19 @@ public class InmuebleFragment extends Fragment {
 
         binding = FragmentInmuebleBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
+        binding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                NavController navController = Navigation.findNavController(view);
+                                navController.navigate(R.id.action_nav_inmuebles_to_fragment_crear_inmueble);
+                            }
+                        }).show();
+            }
+        });
         vm.getMutable().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
             @Override
             public void onChanged(List<Inmueble> lista) {

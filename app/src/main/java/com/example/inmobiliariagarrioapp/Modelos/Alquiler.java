@@ -1,14 +1,22 @@
 package com.example.inmobiliariagarrioapp.Modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Alquiler implements Serializable {
+    @SerializedName("id")
     private int Id ;
+    @SerializedName("precio")
     private Double Precio ;
-    private Date Fecha_Inicio ;
-    private Date Fecha_Fin ;
+    @SerializedName("fecha_Inicio")
+    private String Fecha_Inicio ;
+    @SerializedName("fecha_Fin")
+    private String Fecha_Fin ;
+    @SerializedName("inquilino")
     private Inquilino Inquilino ;
+    @SerializedName("inmueble")
     private Inmueble Inmueble ;
 
     public int getId() {
@@ -27,19 +35,19 @@ public class Alquiler implements Serializable {
         Precio = precio;
     }
 
-    public Date getFecha_Inicio() {
+    public String getFecha_Inicio() {
         return Fecha_Inicio;
     }
 
-    public void setFecha_Inicio(Date fecha_Inicio) {
+    public void setFecha_Inicio(String fecha_Inicio) {
         Fecha_Inicio = fecha_Inicio;
     }
 
-    public Date getFecha_Fin() {
+    public String getFecha_Fin() {
         return Fecha_Fin;
     }
 
-    public void setFecha_Fin(Date fecha_Fin) {
+    public void setFecha_Fin(String fecha_Fin) {
         Fecha_Fin = fecha_Fin;
     }
 
@@ -59,7 +67,10 @@ public class Alquiler implements Serializable {
         Inmueble = inmueble;
     }
 
-    public Alquiler(int id, Double precio, Date fecha_Inicio, Date fecha_Fin, com.example.inmobiliariagarrioapp.Modelos.Inquilino inquilino, com.example.inmobiliariagarrioapp.Modelos.Inmueble inmueble) {
+    public Alquiler() {
+    }
+
+    public Alquiler(int id, Double precio, String fecha_Inicio, String fecha_Fin, com.example.inmobiliariagarrioapp.Modelos.Inquilino inquilino, com.example.inmobiliariagarrioapp.Modelos.Inmueble inmueble) {
         Id = id;
         Precio = precio;
         Fecha_Inicio = fecha_Inicio;

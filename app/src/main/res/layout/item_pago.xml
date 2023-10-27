@@ -25,6 +25,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="Fecha de pago"
+            android:textColor="#fff"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
@@ -50,6 +51,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="Importe:"
+            android:textColor="#fff"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
@@ -73,6 +75,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="Codigo de contrato:"
+            android:textColor="#ffffff"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
@@ -96,6 +99,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="Numero de Pago:"
+            android:textColor="#ffffff"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
@@ -118,7 +122,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text="Id"
+            android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

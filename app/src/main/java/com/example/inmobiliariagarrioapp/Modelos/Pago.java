@@ -1,13 +1,20 @@
 package com.example.inmobiliariagarrioapp.Modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Pago implements Serializable {
+    @SerializedName("id")
     private int Id;
+    @SerializedName("nroPago")
     private int NroPago ;
+    @SerializedName("alquiler")
     private Alquiler Alquiler ;
-    private Date Fecha;
+    @SerializedName("fecha")
+    private String Fecha;
+    @SerializedName("importe")
     private Double Importe ;
 
     public int getId() {
@@ -34,11 +41,11 @@ public class Pago implements Serializable {
         Alquiler = alquiler;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return Fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         Fecha = fecha;
     }
 
@@ -50,7 +57,7 @@ public class Pago implements Serializable {
         Importe = importe;
     }
 
-    public Pago(int id, int nroPago, com.example.inmobiliariagarrioapp.Modelos.Alquiler alquiler, Date fecha, Double importe) {
+    public Pago(int id, int nroPago, com.example.inmobiliariagarrioapp.Modelos.Alquiler alquiler, String fecha, Double importe) {
         Id = id;
         NroPago = nroPago;
         Alquiler = alquiler;

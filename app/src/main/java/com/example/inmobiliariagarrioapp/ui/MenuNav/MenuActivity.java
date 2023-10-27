@@ -47,13 +47,13 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         vm =  new ViewModelProvider(this).get(ViewModelMenu.class);
         setSupportActionBar(binding.appBarMenu.toolbar);
-        binding.appBarMenu.fab.setOnClickListener(new View.OnClickListener() {
+       /* binding.appBarMenu.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // menu should be considered as top level destinations.

@@ -15,7 +15,7 @@
             android:title="@string/inmuebles" />
         <item
             android:id="@+id/nav_inquilinos"
-            android:title="@string/inmquilinos" />
+            android:title="@string/inquilinos" />
         <item
             android:id="@+id/nav_contratos"
             android:title="@string/contratos" />

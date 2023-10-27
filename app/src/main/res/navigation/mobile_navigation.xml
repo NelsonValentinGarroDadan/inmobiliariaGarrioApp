@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_nav_inmuebles_to_fragment_detalle_inmuble"
             app:destination="@id/fragment_detalle_inmuble" />
+        <action
+            android:id="@+id/action_nav_inmuebles_to_fragment_crear_inmueble"
+            app:destination="@id/fragment_crear_inmueble" />
     </fragment>
     <fragment
         android:id="@+id/nav_inquilinos"
@@ -90,5 +93,17 @@
         <action
             android:id="@+id/action_fragment_pagos_to_fragment_detalle_contrato"
             app:destination="@id/fragment_detalle_contrato" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_crear_inmueble"
+        android:name="com.example.inmobiliariagarrioapp.ui.MenuNav.ui.CrearInmueble.FragmentCrearInmueble"
+        android:label="Crear un inmueble"
+        tools:layout="@layout/fragment_crear_inmueble" >
+        <action
+            android:id="@+id/action_fragment_crear_inmueble_to_nav_inmuebles"
+            app:destination="@id/nav_inmuebles" />
+        <action
+            android:id="@+id/action_fragment_crear_inmueble_to_fragment_detalle_inmuble"
+            app:destination="@id/fragment_detalle_inmuble" />
     </fragment>
 </navigation>

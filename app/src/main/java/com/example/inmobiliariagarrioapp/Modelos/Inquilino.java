@@ -1,12 +1,21 @@
 package com.example.inmobiliariagarrioapp.Modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class Inquilino implements Serializable {
+    @SerializedName("id")
     private int Id ;
+    @SerializedName("persona")
     private Persona Persona ;
+    @SerializedName("longitud")
     private String Longitud;
+    @SerializedName("latitud")
     private String Latitud ;
+
+    public Inquilino() {
+    }
 
     public Inquilino(int id, com.example.inmobiliariagarrioapp.Modelos.Persona persona, String longitud, String latitud) {
         Id = id;
