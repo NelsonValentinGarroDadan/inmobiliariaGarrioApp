@@ -1,13 +1,20 @@
 package com.example.inmobiliariagarrioapp.Modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Pago implements Serializable {
+    @SerializedName("Id")
     private int Id;
+    @SerializedName("NroPago")
     private int NroPago ;
+    @SerializedName("Alquiler")
     private Alquiler Alquiler ;
+    @SerializedName("Fecha")
     private Date Fecha;
+    @SerializedName("Importe")
     private Double Importe ;
 
     public int getId() {

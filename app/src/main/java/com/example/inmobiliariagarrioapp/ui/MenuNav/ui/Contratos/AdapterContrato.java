@@ -2,11 +2,13 @@ package com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Contratos;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -15,13 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
 import com.example.inmobiliariagarrioapp.R;
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 import com.example.inmobiliariagarrioapp.request.ApiClient;
+import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.AdapterInquilino;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.DetalleInquilinoFragment;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdapterContrato extends RecyclerView.Adapter<AdapterContrato.ViewHolder>{
     private Context context;
@@ -43,35 +51,59 @@ public class AdapterContrato extends RecyclerView.Adapter<AdapterContrato.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AdapterContrato.ViewHolder holder, int position) {
-        holder.info.setText(inmuebles.get(position).getDireccion()+"\n Ver");
+        holder.info.setText(inmuebles.get(position).getLongitud()+" "+inmuebles.get(position).getLatitud()+"\n Ver");
         Glide.with(context)
-                .load(inmuebles.get(position).getImagen())
+                .load("http://192.168.0.120:5000/api/Inmuebles/Imagenes/"+inmuebles.get(position).getImagen())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.foto);
-
+        holder.IdInmueble = inmuebles.get(position).getId();
     }
 
     @Override
     public int getItemCount() {
         return inmuebles.size();
     }
+    public Alquiler obtenerAlquiler(Context context, int IdInmueble){
+        ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
+        String token ="Bearer "+ ApiClientRetrofit.leerToken(context);
+        final Alquiler[] alquiler = {new Alquiler()};
+        Call<Alquiler> llamada = api.obtenerAlquilerXInmueble(token,IdInmueble);
+        llamada.enqueue(new Callback<Alquiler>() {
+            @Override
+            public void onResponse(Call<Alquiler> call, Response<Alquiler> response) {
+                if(response.isSuccessful()){
+                    alquiler[0] =response.body();
+                }else{
+                    Log.d("Salida",response.errorBody().toString());
+                    Toast.makeText(context,"Error al traer el alquiler",Toast.LENGTH_LONG).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<Alquiler> call, Throwable t) {
+                alquiler[0] = null;
+                Toast.makeText(context,"Error:"+t.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
+        return alquiler[0];
+
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView info;
         private ImageView foto;
-        private ApiClient api;
+        private int IdInmueble;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.info = itemView.findViewById(R.id.etInfoInm);
             this.foto = itemView.findViewById(R.id.ivFotoInm);
-            this.api = ApiClient.getApi();
+            this.IdInmueble=-1;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("contrato", api.obtenerContratoVigente(inmuebles.get(position)));
+                        bundle.putSerializable("alquiler", obtenerAlquiler(v.getContext(),IdInmueble));
                         NavController navController = Navigation.findNavController(v);
                         navController.navigate(R.id.action_nav_contratos_to_fragment_detalle_contrato, bundle);
                     }

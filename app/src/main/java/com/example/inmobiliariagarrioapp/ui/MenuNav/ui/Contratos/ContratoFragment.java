@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inmobiliariagarrioapp.databinding.FragmentContratoBinding;
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inmuebles.InmuebleViewModel;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.AdapterInquilino;
 

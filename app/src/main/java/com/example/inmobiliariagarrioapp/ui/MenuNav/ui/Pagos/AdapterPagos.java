@@ -17,19 +17,20 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.inmobiliariagarrioapp.R;
 import com.example.inmobiliariagarrioapp.modelo.Inmueble;
-import com.example.inmobiliariagarrioapp.modelo.Pago;
+import com.example.inmobiliariagarrioapp.Modelos.Pago;
 import com.example.inmobiliariagarrioapp.request.ApiClient;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Contratos.AdapterContrato;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.DetalleInquilinoFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterPagos extends RecyclerView.Adapter<AdapterPagos.ViewHolder>{
     private Context context;
-    private ArrayList<Pago> pagos;
+    private List<Pago> pagos;
     private LayoutInflater li;
 
-    public AdapterPagos(Context context, ArrayList<Pago> pagosArrayList, LayoutInflater li) {
+    public AdapterPagos(Context context, List<Pago> pagosArrayList, LayoutInflater li) {
         this.context = context;
         this.pagos = pagosArrayList;
         this.li = li;
@@ -44,11 +45,11 @@ public class AdapterPagos extends RecyclerView.Adapter<AdapterPagos.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull AdapterPagos.ViewHolder holder, int position) {
-        holder.tvPagCodigo.setText(pagos.get(position).getIdPago()+"");
-        holder.tvPagNroPago.setText(pagos.get(position).getNumero()+"");
-        holder.tvPagCodContrato.setText(pagos.get(position).getContrato().getIdContrato()+"");
+        holder.tvPagCodigo.setText(pagos.get(position).getId()+"");
+        holder.tvPagNroPago.setText(pagos.get(position).getNroPago()+"");
+        holder.tvPagCodContrato.setText(pagos.get(position).getAlquiler().getId()+"");
         holder.tvPagImporte.setText("$"+pagos.get(position).getImporte());
-        holder.tvPagFecha.setText(pagos.get(position).getFechaDePago());
+        holder.tvPagFecha.setText(pagos.get(position).getFecha().toString());
     }
 
     @Override

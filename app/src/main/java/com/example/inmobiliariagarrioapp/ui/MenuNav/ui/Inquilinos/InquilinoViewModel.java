@@ -2,6 +2,8 @@ package com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,17 +12,20 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 import com.example.inmobiliariagarrioapp.request.ApiClient;
 import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class InquilinoViewModel extends AndroidViewModel {
 
     private Context context;
-    private MutableLiveData<List<Alquiler>> mAlquileres;
+    private MutableLiveData<List<Inmueble>> mInmuebles;
     private ApiClientRetrofit.ApiInmobiliaria api;
     public InquilinoViewModel(@NonNull Application application) {
         super(application);
@@ -29,14 +34,29 @@ public class InquilinoViewModel extends AndroidViewModel {
     }
     public LiveData getMutable()
     {
-        if(mAlquileres == null){
-            mAlquileres = new MutableLiveData<>();
+        if(mInmuebles == null){
+            mInmuebles = new MutableLiveData<>();
         }
-        return mAlquileres;
+        return mInmuebles;
     }
     public void cargarInmuebles(){
-        String token = ApiClientRetrofit.leerToken(context);
-        Call<List<Alquiler>> llamada = api.obtenerPropiedadesAlquiladas(token);
+        String token ="Bearer "+ ApiClientRetrofit.leerToken(context);
+        Call<List<Inmueble>> llamada = api.obtenerPropiedadesAlquiladas(token);
+        llamada.enqueue(new Callback<List<Inmueble>>() {
+            @Override
+            public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
+                if(response.isSuccessful()){
+                    mInmuebles.postValue(response.body());
+                }else{
+                    Log.d("Salida",response.errorBody().toString());
+                    Toast.makeText(context,"Error al trae los inmuebles",Toast.LENGTH_LONG).show();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<List<Inmueble>> call, Throwable t) {
+                Toast.makeText(context,"Error :"+t.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

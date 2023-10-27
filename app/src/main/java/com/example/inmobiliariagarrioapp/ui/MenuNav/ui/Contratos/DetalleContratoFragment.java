@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inmobiliariagarrioapp.R;
-import com.example.inmobiliariagarrioapp.modelo.Contrato;
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
-import com.example.inmobiliariagarrioapp.modelo.Inquilino;
+import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
+import com.example.inmobiliariagarrioapp.Modelos.Inquilino;
 import com.example.inmobiliariagarrioapp.modelo.Pago;
 import com.example.inmobiliariagarrioapp.request.ApiClient;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.AdapterInquilino;
@@ -43,22 +43,22 @@ public class DetalleContratoFragment extends Fragment {
         api = ApiClient.getApi();
         Bundle bundle = getArguments();
         if (bundle != null) {
-            Contrato contrato = (Contrato) bundle.getSerializable("contrato");
-            if (contrato != null) {
+            Alquiler alquiler = (Alquiler) bundle.getSerializable("alquiler");
+            if (alquiler != null) {
 
-                Inmueble inmueble = contrato.getInmueble();
-                Inquilino inquilino = contrato.getInquilino();
-                tvConCodigo.setText(contrato.getIdContrato()+"");
-                tvConFInicio.setText(contrato.getFechaInicio());
-                tvConFFin.setText(contrato.getFechaFin());
-                tvConImporte.setText(contrato.getMontoAlquiler()+"");
-                tvConInquilino.setText(inquilino.getNombre()+" "+inquilino.getApellido());
-                tvConInmueble.setText("Inmueble en "+inmueble.getDireccion());
+                Inmueble inmueble = alquiler.getInmueble();
+                Inquilino inquilino = alquiler.getInquilino();
+                tvConCodigo.setText(alquiler.getId()+"");
+                tvConFInicio.setText(alquiler.getFecha_Inicio().toString());
+                tvConFFin.setText(alquiler.getFecha_Fin().toString());
+                tvConImporte.setText(alquiler.getPrecio()+"");
+                tvConInquilino.setText(inquilino.getPersona().getNombre()+" "+inquilino.getPersona().getApellido());
+                tvConInmueble.setText("Inmueble en "+inmueble.getLongitud()+" "+inmueble.getLatitud());
                 btnPagos.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("contrato",contrato);
+                        bundle.putSerializable("alquiler",alquiler);
                         NavController navController = Navigation.findNavController(view);
                         navController.navigate(R.id.action_fragment_detalle_contrato_to_fragment_pagos, bundle);
                     }

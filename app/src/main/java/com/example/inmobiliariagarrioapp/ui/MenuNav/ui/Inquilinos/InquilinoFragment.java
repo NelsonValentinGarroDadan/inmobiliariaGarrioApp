@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inmobiliariagarrioapp.databinding.FragmentInquilinoBinding;
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 import com.example.inmobiliariagarrioapp.ui.Main.MainActivity;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.MenuActivity;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inmuebles.AdapterInmueble;

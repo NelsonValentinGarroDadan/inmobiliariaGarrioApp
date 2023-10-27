@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.inmobiliariagarrioapp.R;
 import com.example.inmobiliariagarrioapp.modelo.Inmueble;
-import com.example.inmobiliariagarrioapp.modelo.Inquilino;
+import com.example.inmobiliariagarrioapp.Modelos.Inquilino;
 
 public class DetalleInquilinoFragment  extends Fragment {
     private TextView tvInqTelGarante,tvInqNbreGarante,tvInqTelefono,tvInqMail,tvInqDni,tvInqNombre,tvInqApellido,tvInqCodigo;
@@ -28,22 +28,16 @@ public class DetalleInquilinoFragment  extends Fragment {
         tvInqNombre = view.findViewById(R.id.tvInqNombre);
         tvInqApellido = view.findViewById(R.id.tvInqApellido);
         tvInqDni = view.findViewById(R.id.tvInqDni);
-        tvInqMail = view.findViewById(R.id.tvInqMail);
         tvInqTelefono = view.findViewById(R.id.tvInqTelefono);
-        tvInqNbreGarante = view.findViewById(R.id.tvInqNbreGarante);
-        tvInqTelGarante = view.findViewById(R.id.tvInqTelGarante);
         Bundle bundle = getArguments();
         if (bundle != null) {
             Inquilino inquilino = (Inquilino) bundle.getSerializable("inquilino");
             if (inquilino != null) {
-                tvInqCodigo.setText(inquilino.getIdInquilino()+"");
-                tvInqNombre.setText(inquilino.getNombre());
-                tvInqApellido.setText(inquilino.getApellido());
-                tvInqDni.setText(inquilino.getDNI()+"");
-                tvInqMail.setText(inquilino.getEmail());
-                tvInqTelefono.setText(inquilino.getTelefono());
-                tvInqNbreGarante.setText(inquilino.getNombreGarante());
-                tvInqTelGarante.setText(inquilino.getTelefonoGarante());
+                tvInqCodigo.setText(inquilino.getId()+"");
+                tvInqNombre.setText(inquilino.getPersona().getNombre());
+                tvInqApellido.setText(inquilino.getPersona().getApellido());
+                tvInqDni.setText(inquilino.getPersona().getDNI()+"");
+                tvInqTelefono.setText(inquilino.getPersona().getTelefono()+"");
             }
         }
 

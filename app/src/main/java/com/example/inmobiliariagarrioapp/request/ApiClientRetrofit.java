@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
 import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
+import com.example.inmobiliariagarrioapp.Modelos.Inquilino;
+import com.example.inmobiliariagarrioapp.Modelos.Pago;
 import com.example.inmobiliariagarrioapp.Modelos.Propietario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,6 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public class ApiClientRetrofit {
     private static final String URLBASE = "http://192.168.0.120:5000/";
@@ -91,8 +94,19 @@ public class ApiClientRetrofit {
         @FormUrlEncoded
         @PATCH("api/Inmuebles/cambiarDisponibilidad")
         Call<Inmueble> cambiarDisponibilidad(@Header("Authorization") String token,@Field("id") int id, @Field("estado") boolean estado);
-        @GET("api/Alquileres/obtenerXPerfil")
-        Call<List<Alquiler>> obtenerPropiedadesAlquiladas(@Header("Authorization") String token);
+
+        @GET("api/Inmuebles/obtenerAlquiladosXPerfil")
+        Call<List<Inmueble>> obtenerPropiedadesAlquiladas(@Header("Authorization") String token);
+
+        @GET("api/Inquilinos/obtenerXInmueble")
+        Call<Inquilino> obtenerXInmueble(@Header("Authorization") String token,@Query("Id") int IdInmueble);
+
+        @GET("api/Alquileres/obtenerXInmueble")
+        Call<Alquiler> obtenerAlquilerXInmueble(@Header("Authorization") String token,@Query("Id") int id);
+
+        @GET("api/Pagos/obtenerXAlquiler")
+        Call<List<Pago>> obtenerPagosXInmueble(@Header("Authorization") String token, @Query("Id") int id);
+
     }
 
 }
