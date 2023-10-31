@@ -63,6 +63,31 @@ public class AdapterContrato extends RecyclerView.Adapter<AdapterContrato.ViewHo
     public int getItemCount() {
         return inmuebles.size();
     }
+    public Alquiler obtenerAlquiler(Context context, int IdInmueble){
+        ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
+        String token ="Bearer "+ ApiClientRetrofit.leerToken(context);
+        final Alquiler[] alquiler = {new Alquiler()};
+        Call<Alquiler> llamada = api.obtenerAlquilerXInmueble(token,IdInmueble);
+        llamada.enqueue(new Callback<Alquiler>() {
+            @Override
+            public void onResponse(Call<Alquiler> call, Response<Alquiler> response) {
+                if(response.isSuccessful()){
+                    alquiler[0] =response.body();
+                }else{
+                    Log.d("Salida",response.errorBody().toString());
+                    Toast.makeText(context,"Error al traer el alquiler",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Alquiler> call, Throwable t) {
+                alquiler[0] = null;
+                Toast.makeText(context,"Error:"+t.toString(),Toast.LENGTH_LONG).show();
+            }
+        });
+        return alquiler[0];
+
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView info;
         private ImageView foto;
@@ -78,7 +103,7 @@ public class AdapterContrato extends RecyclerView.Adapter<AdapterContrato.ViewHo
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("inmueble", IdInmueble);
+                        bundle.putSerializable("alquiler", obtenerAlquiler(v.getContext(),IdInmueble));
                         NavController navController = Navigation.findNavController(v);
                         navController.navigate(R.id.action_nav_contratos_to_fragment_detalle_contrato, bundle);
                     }
