@@ -20,10 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
 import com.example.inmobiliariagarrioapp.R;
 import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
-import com.example.inmobiliariagarrioapp.request.ApiClient;
 import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.AdapterInquilino;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.DetalleInquilinoFragment;
 
 import java.util.ArrayList;
 
@@ -40,6 +37,9 @@ public class AdapterContrato extends RecyclerView.Adapter<AdapterContrato.ViewHo
         this.context = context;
         this.inmuebles = inmuebleArrayList;
         this.li = li;
+        if(inmuebles.size()==0){
+            Toast.makeText(context, "El propietario no tiene contratos vigentes", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @NonNull
@@ -51,59 +51,34 @@ public class AdapterContrato extends RecyclerView.Adapter<AdapterContrato.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AdapterContrato.ViewHolder holder, int position) {
-        holder.info.setText(inmuebles.get(position).getLongitud()+" "+inmuebles.get(position).getLatitud()+"\n Ver");
+        holder.info.setText(inmuebles.get(position).getDireccion()+"\n Ver");
+        String imagen = inmuebles.get(position).getImagen().replace("\\","/");
+        String url ="http://192.168.0.120:5000"+imagen;
         Glide.with(context)
-                .load("http://192.168.0.120:5000/api/Inmuebles/Imagenes/"+inmuebles.get(position).getImagen())
+                .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.foto);
-        holder.IdInmueble = inmuebles.get(position).getId();
     }
 
     @Override
     public int getItemCount() {
         return inmuebles.size();
     }
-    public Alquiler obtenerAlquiler(Context context, int IdInmueble){
-        ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
-        String token ="Bearer "+ ApiClientRetrofit.leerToken(context);
-        final Alquiler[] alquiler = {new Alquiler()};
-        Call<Alquiler> llamada = api.obtenerAlquilerXInmueble(token,IdInmueble);
-        llamada.enqueue(new Callback<Alquiler>() {
-            @Override
-            public void onResponse(Call<Alquiler> call, Response<Alquiler> response) {
-                if(response.isSuccessful()){
-                    alquiler[0] =response.body();
-                }else{
-                    Log.d("Salida",response.errorBody().toString());
-                    Toast.makeText(context,"Error al traer el alquiler",Toast.LENGTH_LONG).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<Alquiler> call, Throwable t) {
-                alquiler[0] = null;
-                Toast.makeText(context,"Error:"+t.toString(),Toast.LENGTH_LONG).show();
-            }
-        });
-        return alquiler[0];
-
-    }
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView info;
         private ImageView foto;
-        private int IdInmueble;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.info = itemView.findViewById(R.id.etInfoInm);
             this.foto = itemView.findViewById(R.id.ivFotoInm);
-            this.IdInmueble=-1;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("alquiler", obtenerAlquiler(v.getContext(),IdInmueble));
+                        bundle.putSerializable("inmueble", inmuebles.get(position));
                         NavController navController = Navigation.findNavController(v);
                         navController.navigate(R.id.action_nav_contratos_to_fragment_detalle_contrato, bundle);
                     }

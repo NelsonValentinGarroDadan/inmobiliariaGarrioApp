@@ -63,19 +63,12 @@ public class FragmentCrearInmueble extends Fragment {
                     Inmueble inmueble = new Inmueble();
                     Propietario propietario = ApiClientRetrofit.obtenerPerfil(getContext());
                     inmueble.setPropietario(propietario);
-                    inmueble.setLatitud(binding.etLatitud.getText().toString());
-                    inmueble.setLongitud(binding.etLongitud.getText().toString());
+                    inmueble.setDireccion(binding.etDireccion.getText().toString());
+                    inmueble.setCAmbientes(Integer.parseInt(binding.etCA.getText().toString()));
                     inmueble.setTipo(binding.etTipo.getText().toString());
                     inmueble.setUso(binding.etUso.getText().toString());
                     inmueble.setPrecio(Double.parseDouble(binding.etPrecio.getText().toString()));
-                    MultipartBody.Part imagePart = null;
-                    try {
-                        imagePart = ApiClientRetrofit.prepareImagePart(getContext(), selectedImageUri);
-                    } catch (IOException e) {
-                        Toast.makeText(getContext(), "Error al preparar la imagen", Toast.LENGTH_LONG).show();
-                    }
-
-                    vm.crearInmueble(inmueble, imagePart);
+                    vm.crearInmueble(inmueble, selectedImageUri);
                 } else {
                     Toast.makeText(getContext(), "Debe Seleccionar una imagen", Toast.LENGTH_LONG).show();
                 }

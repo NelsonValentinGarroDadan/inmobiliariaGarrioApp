@@ -15,8 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 import com.example.inmobiliariagarrioapp.R;
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
 import com.example.inmobiliariagarrioapp.Modelos.Inquilino;
 
 public class DetalleInquilinoFragment  extends Fragment {
@@ -32,9 +33,10 @@ public class DetalleInquilinoFragment  extends Fragment {
         tvInqDni = view.findViewById(R.id.tvInqDni);
         tvInqTelefono = view.findViewById(R.id.tvInqTelefono);
         vm =new  ViewModelProvider(this).get(DetalleIFViewModel.class);
-        vm.getInquilinoLiveData().observe(getViewLifecycleOwner(), new Observer<Inquilino>() {
+        vm.getInquilinoLiveData().observe(getViewLifecycleOwner(), new Observer<Alquiler>() {
             @Override
-            public void onChanged(Inquilino inquilino) {
+            public void onChanged(Alquiler alquiler) {
+                Inquilino inquilino = alquiler.getInquilino();
                 tvInqCodigo.setText(inquilino.getId()+"");
                 tvInqNombre.setText(inquilino.getPersona().getNombre());
                 tvInqApellido.setText(inquilino.getPersona().getApellido());
@@ -44,8 +46,8 @@ public class DetalleInquilinoFragment  extends Fragment {
         });
         Bundle bundle = getArguments();
         if (bundle != null) {
-            Integer idInmueble = (Integer) bundle.getSerializable("inmueble");
-            vm.obtenerInquilino(idInmueble);
+            Inmueble inmueble = (Inmueble) bundle.getSerializable("inmueble");
+            vm.obtenerInquilino(inmueble);
         }
 
         return view;

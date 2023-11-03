@@ -1,28 +1,14 @@
 package com.example.inmobiliariagarrioapp.ui.MenuNav;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.inmobiliariagarrioapp.R;
 import com.example.inmobiliariagarrioapp.Modelos.Propietario;
-import com.example.inmobiliariagarrioapp.request.ApiClient;
-import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Perfil.PerfilViewModel;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -33,6 +34,9 @@ public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHo
         this.context = context;
         this.inmuebles = inmuebleArrayList;
         this.li = li;
+        if(inmuebles.size()==0){
+            Toast.makeText(context, "El propietario no posee inmuebles", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @NonNull
@@ -44,9 +48,11 @@ public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.info.setText(inmuebles.get(position).getLongitud()+" "+inmuebles.get(position).getLatitud()+"\n"+"$"+inmuebles.get(position).getPrecio());
+        holder.info.setText(inmuebles.get(position).getDireccion()+"\n"+"$"+inmuebles.get(position).getPrecio());
+        String imagen = inmuebles.get(position).getImagen().replace("\\","/");
+        String url ="http://192.168.0.120:5000"+imagen;
         Glide.with(context)
-                .load("http://192.168.0.120:5000/api/Inmuebles/Imagenes/"+inmuebles.get(position).getImagen())
+                .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.foto);
 

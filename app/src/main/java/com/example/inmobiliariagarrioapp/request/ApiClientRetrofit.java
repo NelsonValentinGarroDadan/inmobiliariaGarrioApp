@@ -2,40 +2,34 @@ package com.example.inmobiliariagarrioapp.request;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.util.Log;
 
 import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
 import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
-import com.example.inmobiliariagarrioapp.Modelos.Inquilino;
+import com.example.inmobiliariagarrioapp.Modelos.LoginView;
 import com.example.inmobiliariagarrioapp.Modelos.Pago;
 import com.example.inmobiliariagarrioapp.Modelos.Propietario;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.CrearInmueble.ImageUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.util.List;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Query;
 
 public class ApiClientRetrofit {
     private static final String URLBASE = "http://192.168.0.120:5000/";
     private static ApiInmobiliaria apiInmobiliaria;
+    public static String getURLBASE(){return URLBASE;}
     public static ApiInmobiliaria getApiInmobiliaria(){
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit rtf = new Retrofit.Builder()
@@ -82,56 +76,43 @@ public class ApiClientRetrofit {
         }
     }
     public interface ApiInmobiliaria{
-        @FormUrlEncoded
+
         @POST("api/Propietarios/login")
-        Call<String> login(@Field("Mail") String mail, @Field("Password") String password);
+        Call<String> login(@Body LoginView login);
 
         @GET("api/Propietarios/perfil")
         Call<Propietario> obtenerPerfil(@Header("Authorization") String token);
 
-        @FormUrlEncoded
+
         @PATCH("api/Propietarios/update")
-        Call<Propietario> modificarPerfil(@Header("Authorization") String token
-                , @Field("Nombre") String Nombre
-                , @Field("Apellido") String Apellido
-                , @Field("DNI") long DNI
-                , @Field("Telefono") long Telefono);
+        Call<Propietario> modificarPerfil(@Header("Authorization") String token,@Body Propietario propietario);
 
         @GET("api/Inmuebles/obtenerXPerfil")
         Call<List<Inmueble>> obtenerPropiedades(@Header("Authorization") String token);
-        @FormUrlEncoded
+
         @PATCH("api/Inmuebles/cambiarDisponibilidad")
-        Call<Inmueble> cambiarDisponibilidad(@Header("Authorization") String token,@Field("id") int id, @Field("estado") boolean estado);
+        Call<Inmueble> cambiarDisponibilidad(@Header("Authorization") String token,@Body Inmueble inmueble);
 
         @GET("api/Inmuebles/obtenerAlquiladosXPerfil")
         Call<List<Inmueble>> obtenerPropiedadesAlquiladas(@Header("Authorization") String token);
 
-        @GET("api/Inquilinos/obtenerXInmueble")
-        Call<Inquilino> obtenerXInmueble(@Header("Authorization") String token,@Query("Id") int IdInmueble);
+        @POST("api/Alquileres/obtenerXInmueble")
+        Call<Alquiler> obtenerAlquilerXInmueble(@Header("Authorization") String token,@Body Inmueble inmueble);
 
-        @GET("api/Alquileres/obtenerXInmueble")
-        Call<Alquiler> obtenerAlquilerXInmueble(@Header("Authorization") String token,@Query("Id") int id);
-
-        @GET("api/Pagos/obtenerXAlquiler")
-        Call<List<Pago>> obtenerPagosXInmueble(@Header("Authorization") String token, @Query("Id") int id);
+        @POST("api/Pagos/obtenerXAlquiler")
+        Call<List<Pago>> obtenerPagosXInmueble(@Header("Authorization") String token, @Body Alquiler alquiler);
 
         @Multipart
         @POST("api/Inmuebles/create")
         Call<Inmueble> crearInmueble(@Header("Authorization") String token,
-                                     @Part("Longitud") String Longitud ,
-                                     @Part("Latitud") String Latitud ,
-                                     @Part("CAmbientes") int CAmbientes ,
-                                     @Part("Tipo") String Tipo ,
-                                     @Part("Uso") String Uso ,
-                                     @Part("Precio") double Precio ,
-                                     @Part("PropietarioId") int PropietarioId ,
-                                     @Part("imagen") MultipartBody.Part imagen//por el momento
+                                     @Part("direccion") RequestBody direccion ,
+                                     @Part("cAmbientes") RequestBody CAmbientes ,
+                                     @Part("Tipo") RequestBody Tipo ,
+                                     @Part("Uso") RequestBody Uso ,
+                                     @Part("Precio") RequestBody Precio ,
+                                     MultipartBody.Part imagen
                                      );
 
     }
-    public static MultipartBody.Part prepareImagePart(Context context, Uri imageUri) throws IOException {
-        byte[] imageBytes = ImageUtils.uriToBytes(context, imageUri);
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), imageBytes);
-        return MultipartBody.Part.createFormData("imagen", "image.jpg", requestBody);
-    }
+
 }

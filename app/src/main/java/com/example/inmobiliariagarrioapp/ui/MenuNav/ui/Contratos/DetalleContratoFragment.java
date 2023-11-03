@@ -12,23 +12,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inmobiliariagarrioapp.R;
 import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
 import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 import com.example.inmobiliariagarrioapp.Modelos.Inquilino;
-import com.example.inmobiliariagarrioapp.modelo.Pago;
-import com.example.inmobiliariagarrioapp.request.ApiClient;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.AdapterInquilino;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.DetalleInquilinoFragment;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Pagos.AdapterPagos;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Pagos.FragmentPagos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class DetalleContratoFragment extends Fragment {
     private TextView tvConCodigo,tvConFInicio ,tvConFFin ,tvConImporte, tvConInquilino ,tvConInmueble ,btnPagos;
@@ -58,7 +49,7 @@ public class DetalleContratoFragment extends Fragment {
                 tvConFFin.setText(FechaFin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 tvConImporte.setText(alquiler.getPrecio()+"");
                 tvConInquilino.setText(inquilino.getPersona().getNombre()+" "+inquilino.getPersona().getApellido());
-                tvConInmueble.setText("Inmueble en "+inmueble.getLongitud()+" "+inmueble.getLatitud());
+                tvConInmueble.setText("Inmueble en "+inmueble.getDireccion());
                 btnPagos.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -72,8 +63,8 @@ public class DetalleContratoFragment extends Fragment {
         });
         Bundle bundle = getArguments();
         if (bundle != null) {
-            Integer idInmueble = (Integer) bundle.getSerializable("inmueble");
-            vm.obtnerAlquieler(idInmueble);
+            Inmueble inmueble = (Inmueble) bundle.getSerializable("inmueble");
+            vm.obtnerAlquieler(inmueble);
         }
 
         return view;

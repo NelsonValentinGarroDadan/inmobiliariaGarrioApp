@@ -9,14 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
-import com.example.inmobiliariagarrioapp.request.ApiClient;
 import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;

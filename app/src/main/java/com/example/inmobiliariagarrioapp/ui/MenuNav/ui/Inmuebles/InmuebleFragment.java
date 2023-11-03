@@ -36,17 +36,11 @@ public class InmuebleFragment extends Fragment {
         binding = FragmentInmuebleBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                NavController navController = Navigation.findNavController(view);
-                                navController.navigate(R.id.action_nav_inmuebles_to_fragment_crear_inmueble);
-                            }
-                        }).show();
-            }
+              @Override
+             public void onClick(View view) {
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.action_nav_inmuebles_to_fragment_crear_inmueble);
+             }
         });
         vm.getMutable().observe(getViewLifecycleOwner(), new Observer<List<Inmueble>>() {
             @Override

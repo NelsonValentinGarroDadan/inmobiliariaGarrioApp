@@ -10,6 +10,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
+import com.example.inmobiliariagarrioapp.Modelos.Inmueble;
 import com.example.inmobiliariagarrioapp.Modelos.Inquilino;
 import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
 import com.google.gson.Gson;
@@ -19,7 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetalleIFViewModel extends AndroidViewModel {
-    private MutableLiveData<Inquilino> inquilinoLiveData = new MutableLiveData<>();
+    private MutableLiveData<Alquiler> mAlquiler = new MutableLiveData<>();
     private Context context;
 
     public DetalleIFViewModel(@NonNull Application application) {
@@ -27,23 +29,21 @@ public class DetalleIFViewModel extends AndroidViewModel {
         context = application;
     }
 
-    public LiveData<Inquilino> getInquilinoLiveData() {
-        return inquilinoLiveData;
+    public LiveData getInquilinoLiveData() {
+        return mAlquiler;
     }
 
-    public void obtenerInquilino(int IdInmueble){
+    public void obtenerInquilino(Inmueble inmueble){
 
         ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
         String token = "Bearer " + ApiClientRetrofit.leerToken(context);
-        Call<Inquilino> llamada = api.obtenerXInmueble(token, IdInmueble);
-        llamada.enqueue(new Callback<Inquilino>() {
+        Call<Alquiler> llamada = api.obtenerAlquilerXInmueble(token, inmueble);
+        llamada.enqueue(new Callback<Alquiler>() {
             @Override
-            public void onResponse(Call<Inquilino> call, Response<Inquilino> response) {
+            public void onResponse(Call<Alquiler> call, Response<Alquiler> response) {
                 if (response.isSuccessful()) {
-                    inquilinoLiveData.postValue(response.body());
-                    Gson gson = new Gson();
-                    String inquiline = gson.toJson(response.body());
-                    Log.d("Salida", "Respuesta exitosa: "+inquiline);
+                    mAlquiler.postValue(response.body());
+                    Log.d("Salida", "Respuesta exitosa");
                 } else {
                     Log.d("Salida", "Error: "+response.code());
                     Toast.makeText(context, "Error:" + response.errorBody().toString(), Toast.LENGTH_LONG).show();
@@ -51,7 +51,7 @@ public class DetalleIFViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFailure(Call<Inquilino> call, Throwable t) {
+            public void onFailure(Call<Alquiler> call, Throwable t) {
                 Log.d("Salida", "Error:" + t.toString());
                 Toast.makeText(context, "Error:" + t.toString(), Toast.LENGTH_LONG).show();
             }

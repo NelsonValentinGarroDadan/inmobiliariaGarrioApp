@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_fragment_detalle_inmuble_to_nav_inmuebles"
             app:destination="@id/nav_inmuebles" />
+        <action
+            android:id="@+id/action_fragment_detalle_inmuble_to_fragment_crear_inmueble"
+            app:destination="@id/fragment_crear_inmueble" />
     </fragment>
     <fragment
         android:id="@+id/fragment_detalle_inquilino"

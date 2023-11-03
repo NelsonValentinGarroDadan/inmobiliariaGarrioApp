@@ -8,15 +8,13 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
 
+import com.example.inmobiliariagarrioapp.Modelos.LoginView;
 import com.example.inmobiliariagarrioapp.Modelos.Propietario;
-import com.example.inmobiliariagarrioapp.request.ApiClient;
 import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
 import com.example.inmobiliariagarrioapp.ui.MenuNav.MenuActivity;
 
@@ -54,8 +52,9 @@ public class MainActivityViewModel extends AndroidViewModel {
         };
     }
     public void login(String mail,String password){
+        LoginView login = new LoginView(mail,password);
 
-        Call<String> llamada = api.login(mail,password);
+        Call<String> llamada = api.login(login);
         llamada.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {

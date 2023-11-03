@@ -1,30 +1,19 @@
 package com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Pagos;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.inmobiliariagarrioapp.R;
-import com.example.inmobiliariagarrioapp.modelo.Inmueble;
 import com.example.inmobiliariagarrioapp.Modelos.Pago;
-import com.example.inmobiliariagarrioapp.request.ApiClient;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Contratos.AdapterContrato;
-import com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos.DetalleInquilinoFragment;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterPagos extends RecyclerView.Adapter<AdapterPagos.ViewHolder>{

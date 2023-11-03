@@ -9,10 +9,8 @@ import okhttp3.MultipartBody;
 public class Inmueble implements Serializable {
     @SerializedName("id")
     private int Id;
-    @SerializedName("longitud")
-    private String Longitud;
-    @SerializedName("latitud")
-    private String Latitud;
+    @SerializedName("direccion")
+    private String Direccion;
     @SerializedName("cAmbientes")
     private int CAmbientes;
     @SerializedName("tipo")
@@ -36,10 +34,9 @@ public class Inmueble implements Serializable {
         this.image = image;
     }
 
-    public Inmueble(int id, String longitud, String latitud, int CAmbientes, String tipo, String uso, double precio, boolean disponible, Propietario propietario , String imagen) {
+    public Inmueble(int id, String direccion, int CAmbientes, String tipo, String uso, double precio, boolean disponible, Propietario propietario , String imagen) {
         Id = id;
-        Longitud = longitud;
-        Latitud = latitud;
+        Direccion = direccion;
         this.CAmbientes = CAmbientes;
         Tipo = tipo;
         Uso = uso;
@@ -69,21 +66,14 @@ public class Inmueble implements Serializable {
         Id = id;
     }
 
-    public String getLongitud() {
-        return Longitud;
+    public String getDireccion() {
+        return Direccion;
     }
 
-    public void setLongitud(String longitud) {
-        Longitud = longitud;
+    public void setDireccion(String direccion) {
+        Direccion = direccion;
     }
 
-    public String getLatitud() {
-        return Latitud;
-    }
-
-    public void setLatitud(String latitud) {
-        Latitud = latitud;
-    }
 
     public int getCAmbientes() {
         return CAmbientes;

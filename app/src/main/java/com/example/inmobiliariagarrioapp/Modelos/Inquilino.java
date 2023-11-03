@@ -9,19 +9,16 @@ public class Inquilino implements Serializable {
     private int Id ;
     @SerializedName("persona")
     private Persona Persona ;
-    @SerializedName("longitud")
-    private String Longitud;
-    @SerializedName("latitud")
-    private String Latitud ;
+    @SerializedName("direccion")
+    private String Direccion;
 
     public Inquilino() {
     }
 
-    public Inquilino(int id, com.example.inmobiliariagarrioapp.Modelos.Persona persona, String longitud, String latitud) {
+    public Inquilino(int id, Persona persona, String direccion) {
         Id = id;
         Persona = persona;
-        Longitud = longitud;
-        Latitud = latitud;
+        Direccion = direccion;
     }
 
     public int getId() {
@@ -40,19 +37,13 @@ public class Inquilino implements Serializable {
         Persona = persona;
     }
 
-    public String getLongitud() {
-        return Longitud;
+    public String getDireccion() {
+        return Direccion;
     }
 
-    public void setLongitud(String longitud) {
-        Longitud = longitud;
+    public void setDireccion(String direccion) {
+        Direccion = direccion;
     }
 
-    public String getLatitud() {
-        return Latitud;
-    }
 
-    public void setLatitud(String latitud) {
-        Latitud = latitud;
-    }
 }

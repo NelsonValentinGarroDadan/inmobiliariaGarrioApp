@@ -43,20 +43,22 @@ public class DetalleInmubleFragment extends Fragment {
             if (inmueble != null) {
                 tvInmCodigo.setText(inmueble.getId()+"");
                 tvInmAmbientes.setText(inmueble.getCAmbientes()+"");
-                tvInmDireccion.setText(inmueble.getLongitud()+inmueble.getLatitud());
+                tvInmDireccion.setText(inmueble.getDireccion());
                 tvInmPrecio.setText(inmueble.getPrecio()+"");
                 tvInmTipo.setText(inmueble.getTipo());
                 tvInmUso.setText(inmueble.getUso());
+                String imagen = inmueble.getImagen().replace("\\","/");
+                String url ="http://192.168.0.120:5000"+imagen;
                 Glide.with(getContext())
-                        .load("http://192.168.0.120:5000/api/Inmuebles/Imagenes/"+inmueble.getImagen())
+                        .load(url)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(ivInmFoto);
                 cbInmDisponible.setChecked(inmueble.isDisponible());
                 cbInmDisponible.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        int id = Integer.parseInt(tvInmCodigo.getText().toString());
-                        vm.cambiarDisponibilidad(id,cbInmDisponible.isChecked());
+                        inmueble.setDisponible(cbInmDisponible.isChecked());
+                        vm.cambiarDisponibilidad(inmueble);
                     }
                 });
             }

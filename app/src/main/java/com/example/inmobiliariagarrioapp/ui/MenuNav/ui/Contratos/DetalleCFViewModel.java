@@ -31,10 +31,10 @@ public class DetalleCFViewModel extends AndroidViewModel {
         }
         return mInmueble;
     }
-    public void obtnerAlquieler(int IdInmueble){
+    public void obtnerAlquieler(Inmueble inmueble){
         ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
         String token ="Bearer "+ ApiClientRetrofit.leerToken(context);
-        Call<Alquiler> llamada = api.obtenerAlquilerXInmueble(token,IdInmueble);
+        Call<Alquiler> llamada = api.obtenerAlquilerXInmueble(token,inmueble);
         llamada.enqueue(new Callback<Alquiler>() {
             @Override
             public void onResponse(Call<Alquiler> call, Response<Alquiler> response) {

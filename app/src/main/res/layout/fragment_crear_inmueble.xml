@@ -20,34 +20,24 @@
 
     <!-- Agrega otros campos para el formulario, por ejemplo -->
     <EditText
-        android:id="@+id/etLatitud"
+        android:id="@+id/etDireccion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Latitud"
+        android:hint="Direccion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSeleccionarImagen" />
 
     <EditText
-        android:id="@+id/etLongitud"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Longitud"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLatitud" />
-
-    <EditText
         android:id="@+id/etTipo"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="16dp"
         android:hint="Tipo"
-        app:layout_constraintTop_toBottomOf="@+id/etLongitud"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDireccion" />
 
     <EditText
         android:id="@+id/etUso"
@@ -70,24 +60,41 @@
         android:layout_marginTop="16dp" />
 
     <!-- Agrega una ImageView para mostrar la imagen seleccionada si lo deseas -->
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/etPrecio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
 
     <!-- Agrega un botón para crear el inmueble -->
+
+    <EditText
+        android:id="@+id/etCA"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:hint="Cantidad de ambientes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPrecio" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="197dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCA" />
+
     <Button
         android:id="@+id/btnCrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Crear Inmueble"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.inmobiliariagarrioapp.Modelos.Alquiler;
 import com.example.inmobiliariagarrioapp.Modelos.Pago;
 import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
 
@@ -32,10 +33,10 @@ public class FragmentPagosViewModel extends AndroidViewModel {
         }
         return mLista;
     }
-    public void obtenerPagos(int IdAlquiler){
+    public void obtenerPagos(Alquiler alquiler){
         String token = "Bearer "+ ApiClientRetrofit.leerToken(context);
         ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
-        Call<List<Pago>> llamada = api.obtenerPagosXInmueble(token,IdAlquiler);
+        Call<List<Pago>> llamada = api.obtenerPagosXInmueble(token,alquiler);
         llamada.enqueue(new Callback<List<Pago>>() {
             @Override
             public void onResponse(Call<List<Pago>> call, Response<List<Pago>> response) {

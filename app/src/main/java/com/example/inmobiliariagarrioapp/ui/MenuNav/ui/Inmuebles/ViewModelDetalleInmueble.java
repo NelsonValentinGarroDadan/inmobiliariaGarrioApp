@@ -23,15 +23,16 @@ public class ViewModelDetalleInmueble extends AndroidViewModel {
         this.context = application;
         this.api = ApiClientRetrofit.getApiInmobiliaria();
     }
-    public void cambiarDisponibilidad(int id,boolean estado){
+    public void cambiarDisponibilidad(Inmueble inmueble){
         String token = "Bearer "+ ApiClientRetrofit.leerToken(context);
-        Call<Inmueble> llamada = api.cambiarDisponibilidad(token,id,estado);
+        Call<Inmueble> llamada = api.cambiarDisponibilidad(token,inmueble);
         llamada.enqueue(new Callback<Inmueble>() {
             @Override
             public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(context,"Se alctualizo el inmueble con exito",Toast.LENGTH_LONG).show();
                 }else{
+                    Log.d("Salida",response.toString());
                     Toast.makeText(context,"Ocurrio un error al intentar actualizar el inmueble",Toast.LENGTH_LONG).show();
                 }
             }
