@@ -2,6 +2,7 @@ package com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Pagos;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,7 +34,10 @@ public class FragmentPagosViewModel extends AndroidViewModel {
         }
         return mLista;
     }
-    public void obtenerPagos(Alquiler alquiler){
+    public void obtenerPagos(Bundle bundle){
+        if (bundle == null || !bundle.containsKey("alquiler")) return;
+        Alquiler alquiler = (Alquiler) bundle.getSerializable("alquiler");
+        if(alquiler == null) return;
         String token = "Bearer "+ ApiClientRetrofit.leerToken(context);
         ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
         Call<List<Pago>> llamada = api.obtenerPagosXInmueble(token,alquiler);

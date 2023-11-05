@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
         import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -37,10 +38,9 @@ public class DetalleInmubleFragment extends Fragment {
         tvInmTipo = view.findViewById(R.id.tvInmTipo);
         ivInmFoto = view.findViewById(R.id.ivInmFoto);
         cbInmDisponible = view.findViewById(R.id.cbInmDisponible);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-           Inmueble inmueble = (Inmueble) bundle.getSerializable("inmueble");
-            if (inmueble != null) {
+        vm.getMutable().observe(getViewLifecycleOwner(), new Observer<Inmueble>() {
+            @Override
+            public void onChanged(Inmueble inmueble) {
                 tvInmCodigo.setText(inmueble.getId()+"");
                 tvInmAmbientes.setText(inmueble.getCAmbientes()+"");
                 tvInmDireccion.setText(inmueble.getDireccion());
@@ -62,7 +62,8 @@ public class DetalleInmubleFragment extends Fragment {
                     }
                 });
             }
-        }
+        });
+        vm.obtnerInmueble(getArguments());
 
         return view;
     }

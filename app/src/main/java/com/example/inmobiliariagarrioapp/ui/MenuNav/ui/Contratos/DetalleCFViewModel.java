@@ -2,6 +2,7 @@ package com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Contratos;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,18 +21,21 @@ import retrofit2.Response;
 
 public class DetalleCFViewModel extends AndroidViewModel {
     private Context context;
-    private MutableLiveData<Alquiler> mInmueble;
+    private MutableLiveData<Alquiler> mAlquiler;
     public DetalleCFViewModel(@NonNull Application application) {
         super(application);
         this.context = application;
     }
     public LiveData getMutable() {
-        if(mInmueble == null){
-            mInmueble = new MutableLiveData<>();
+        if(mAlquiler == null){
+            mAlquiler = new MutableLiveData<>();
         }
-        return mInmueble;
+        return mAlquiler;
     }
-    public void obtnerAlquieler(Inmueble inmueble){
+    public void obtnerAlquiler(Bundle bundle){
+        if (bundle == null || !bundle.containsKey("inmueble")) return;
+        Inmueble inmueble = (Inmueble) bundle.getSerializable("inmueble");
+        if(inmueble == null) return;
         ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
         String token ="Bearer "+ ApiClientRetrofit.leerToken(context);
         Call<Alquiler> llamada = api.obtenerAlquilerXInmueble(token,inmueble);
@@ -39,7 +43,7 @@ public class DetalleCFViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<Alquiler> call, Response<Alquiler> response) {
                 if(response.isSuccessful()){
-                    mInmueble.postValue(response.body());
+                    mAlquiler.postValue(response.body());
                 }else{
                     Log.d("Salida",response.errorBody().toString());
                     Toast.makeText(context,"Error al traer el alquiler",Toast.LENGTH_LONG).show();

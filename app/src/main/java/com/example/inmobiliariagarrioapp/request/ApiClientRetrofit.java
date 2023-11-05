@@ -110,7 +110,7 @@ public class ApiClientRetrofit {
                                      @Part("Tipo") RequestBody Tipo ,
                                      @Part("Uso") RequestBody Uso ,
                                      @Part("Precio") RequestBody Precio ,
-                                     MultipartBody.Part imagen
+                                     @Part MultipartBody.Part imagen
                                      );
 
     }

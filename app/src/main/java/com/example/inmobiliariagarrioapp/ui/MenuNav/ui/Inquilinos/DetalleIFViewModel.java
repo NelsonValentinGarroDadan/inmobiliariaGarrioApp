@@ -2,6 +2,7 @@ package com.example.inmobiliariagarrioapp.ui.MenuNav.ui.Inquilinos;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,8 +34,10 @@ public class DetalleIFViewModel extends AndroidViewModel {
         return mAlquiler;
     }
 
-    public void obtenerInquilino(Inmueble inmueble){
-
+    public void obtenerInquilino(Bundle bundle){
+        if (bundle == null || !bundle.containsKey("inmueble")) return;
+        Inmueble inmueble = (Inmueble) bundle.getSerializable("inmueble");
+        if(inmueble == null) return;
         ApiClientRetrofit.ApiInmobiliaria api = ApiClientRetrofit.getApiInmobiliaria();
         String token = "Bearer " + ApiClientRetrofit.leerToken(context);
         Call<Alquiler> llamada = api.obtenerAlquilerXInmueble(token, inmueble);

@@ -40,13 +40,8 @@ public class FragmentPagos  extends Fragment {
             }
         });
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            Alquiler alquiler = (Alquiler) bundle.getSerializable("alquiler");
-            if (alquiler != null) {
-                vm.obtenerPagos(alquiler);
-            }
-        }
+        vm.obtenerPagos(getArguments());
+
         return root;
     }
 

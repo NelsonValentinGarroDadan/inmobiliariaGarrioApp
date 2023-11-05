@@ -44,11 +44,8 @@ public class DetalleInquilinoFragment  extends Fragment {
                 tvInqTelefono.setText(inquilino.getPersona().getTelefono()+"");
             }
         });
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            Inmueble inmueble = (Inmueble) bundle.getSerializable("inmueble");
-            vm.obtenerInquilino(inmueble);
-        }
+        vm.obtenerInquilino(getArguments());
+
 
         return view;
     }

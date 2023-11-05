@@ -61,11 +61,8 @@ public class DetalleContratoFragment extends Fragment {
                 });
             }
         });
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            Inmueble inmueble = (Inmueble) bundle.getSerializable("inmueble");
-            vm.obtnerAlquieler(inmueble);
-        }
+        vm.obtnerAlquiler(getArguments());
+
 
         return view;
     }

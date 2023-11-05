@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.MenuNav.ui.CrearInmueble.FragmentCrearInmueble">
 
-    <!-- Agrega un botón para seleccionar una imagen -->
+
     <Button
         android:id="@+id/btnSeleccionarImagen"
         android:layout_width="wrap_content"
@@ -18,11 +18,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Agrega otros campos para el formulario, por ejemplo -->
+
     <EditText
         android:id="@+id/etDireccion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:hint="Direccion"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,9 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <!-- Agrega una ImageView para mostrar la imagen seleccionada si lo deseas -->
 
-    <!-- Agrega un botón para crear el inmueble -->
 
     <EditText
         android:id="@+id/etCA"

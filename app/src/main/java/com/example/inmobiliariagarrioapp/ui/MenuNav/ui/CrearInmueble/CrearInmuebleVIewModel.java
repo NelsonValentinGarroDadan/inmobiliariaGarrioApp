@@ -1,10 +1,14 @@
 package com.example.inmobiliariagarrioapp.ui.MenuNav.ui.CrearInmueble;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -25,6 +29,7 @@ import retrofit2.Response;
 public class CrearInmuebleVIewModel extends AndroidViewModel {
     private Context context;
     private MutableLiveData<Inmueble> mInmueble;
+    private MutableLiveData<Uri> mUri;
     private ApiClientRetrofit.ApiInmobiliaria api;
 
     public CrearInmuebleVIewModel(@NonNull Application application) {
@@ -33,12 +38,13 @@ public class CrearInmuebleVIewModel extends AndroidViewModel {
         this.api = ApiClientRetrofit.getApiInmobiliaria();
     }
     public void crearInmueble(Inmueble inmueble, Uri uri){
+        if (uri == null){
+            Toast.makeText(context, "Debe Seleccionar una imagen", Toast.LENGTH_LONG).show();
+        }
         if(inmueble.getDireccion()==null ||
                 inmueble.getTipo()==null ||
                 inmueble.getUso()==null ||
-                inmueble.getPrecio()==0 ||
-                inmueble.getPropietario().getId()==0 ||
-                uri ==null){
+                inmueble.getPrecio()==0 ){
             Toast.makeText(context,"Todos los campos son obligatorios",Toast.LENGTH_LONG).show();
             return;
         }
@@ -61,7 +67,7 @@ public class CrearInmuebleVIewModel extends AndroidViewModel {
             public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                 if(response.isSuccessful()){
                     mInmueble.postValue(response.body());
-                    Toast.makeText(context,"Se creo con exito el inmueble",Toast.LENGTH_LONG).show();
+
                 }
             }
 
@@ -76,5 +82,18 @@ public class CrearInmuebleVIewModel extends AndroidViewModel {
             mInmueble = new MutableLiveData<>();
         }
         return mInmueble;
+    }
+    public LiveData getMutableUri(){
+        if(mUri == null){
+            mUri = new MutableLiveData<>();
+        }
+        return mUri;
+    }
+    public void verificarUri(ActivityResult result){
+        if(result.getResultCode() == RESULT_OK){
+            Intent data = result.getData();
+            mUri.setValue(data.getData()) ;
+        }
+
     }
 }
