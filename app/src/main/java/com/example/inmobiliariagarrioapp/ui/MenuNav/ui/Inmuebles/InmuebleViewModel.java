@@ -19,6 +19,8 @@ import com.example.inmobiliariagarrioapp.R;
 import com.example.inmobiliariagarrioapp.request.ApiClientRetrofit;
 import com.google.gson.Gson;
 
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,6 +56,18 @@ public class InmuebleViewModel extends AndroidViewModel {
                     Gson gson = new Gson();
                     String listaJson = gson.toJson(lista);
                     Log.d("Salida",listaJson);
+                    java.util.Collections.sort(lista, new Comparator<Inmueble>() {
+                        @Override
+                        public int compare(Inmueble inmueble, Inmueble t1) {
+                            if(inmueble.getId()< t1.getId()){
+                                return 1;
+                            }else if(inmueble.getId() == t1.getId()){
+                                return 0;
+                            }else{
+                                return -1;
+                            }
+                        }
+                    });
                     mInmuebles.postValue(lista);
                 }else{
                     Toast.makeText(context,"Ocurrio un error al traer los inmuebles",Toast.LENGTH_LONG).show();

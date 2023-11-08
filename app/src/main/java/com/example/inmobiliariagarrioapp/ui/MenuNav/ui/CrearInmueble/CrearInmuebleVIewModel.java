@@ -6,6 +6,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -67,7 +68,8 @@ public class CrearInmuebleVIewModel extends AndroidViewModel {
             public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
                 if(response.isSuccessful()){
                     mInmueble.postValue(response.body());
-
+                }else{
+                    Log.d("Salida",response.errorBody().toString());
                 }
             }
 

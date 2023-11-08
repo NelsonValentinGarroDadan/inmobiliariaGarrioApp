@@ -1,6 +1,7 @@
 package com.example.inmobiliariagarrioapp.ui.Main;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,7 +9,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,7 +20,6 @@ import com.example.inmobiliariagarrioapp.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private MainActivityViewModel mv;
-    private static final int CODIGO_DE_SOLICITUD_DE_PERMISOS = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         mv = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(MainActivityViewModel.class);
+        solicitarPermisos();
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,65 +35,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-         if (!verificarPermisos()) {
-            solicitarPermisos();
-         }
+
+
         mv.startShakeDetection();
     }
 
-    public void solicitarPermisos() {
-        String[] permisos = new String[]{
-                Manifest.permission.INTERNET,
-                Manifest.permission.WAKE_LOCK,
-                Manifest.permission.CALL_PHONE,
-                // Descomenta los siguientes permisos cuando los necesites
-                // Manifest.permission.ACCESS_COARSE_LOCATION,
-                // Manifest.permission.ACCESS_FINE_LOCATION,
-                // Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-        };
 
-        ActivityCompat.requestPermissions(this, permisos, CODIGO_DE_SOLICITUD_DE_PERMISOS);
-    }
 
-    private boolean verificarPermisos() {
-        int permisoInternet = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
-        int permisoAcelerometro = ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK);
-        int permisoCall = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
-        int permisoRExStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        int permisoWExStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        /* Permiso de localizacion
-          int permisoCoarseLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        int permisoFineLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        int permisoBackgroundLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-        return permisoCoarseLocation == PackageManager.PERMISSION_GRANTED &&
-                permisoFineLocation == PackageManager.PERMISSION_GRANTED &&
-                permisoBackgroundLocation == PackageManager.PERMISSION_GRANTED &&
-                permisoInternet == PackageManager.PERMISSION_GRANTED &&
-                permisoAcelerometro == PackageManager.PERMISSION_GRANTED &&
-                permisoCall == PackageManager.PERMISSION_GRANTED;
-         */
-        return permisoInternet == PackageManager.PERMISSION_GRANTED &&
-                permisoAcelerometro == PackageManager.PERMISSION_GRANTED &&
-                permisoCall == PackageManager.PERMISSION_GRANTED &&
-                permisoRExStorage == PackageManager.PERMISSION_GRANTED;
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mv.stopShakeDetection();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == CODIGO_DE_SOLICITUD_DE_PERMISOS) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                Toast.makeText(this, "La aplicación requiere permisos para funcionar. La aplicación se cerrará.", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+    private void solicitarPermisos(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        && checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED
+                        && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                        && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        )
+        {
+            requestPermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
         }
     }
+
+
+
 }
